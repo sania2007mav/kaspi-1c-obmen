@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Обмен 1С и Kaspi</title>
+  <style>
+    :root {
+      --ink: #1c1917;
+      --muted: #57534e;
+      --line: #e7e5e4;
+      --paper: #fafaf9;
+      --now: #1d4ed8;
+      --now-bg: #eff6ff;
+      --next: #047857;
+      --next-bg: #ecfdf5;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 17px/1.45 Georgia, "Times New Roman", serif;
+      color: var(--ink);
+      background: var(--paper);
+    }
+    main { max-width: 760px; margin: 0 auto; padding: 40px 20px 72px; }
+    h1 { font-size: 32px; line-height: 1.15; margin: 0 0 8px; }
+    .lead { color: var(--muted); margin: 0 0 36px; }
+    h2 { font-size: 22px; margin: 0 0 6px; }
+    .note { color: var(--muted); margin: 0 0 18px; }
+    section { margin-bottom: 48px; }
+    .flow { display: grid; gap: 0; }
+    .box {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .box strong { display: block; font-family: system-ui, sans-serif; font-size: 15px; margin-bottom: 4px; }
+    .box span { color: var(--muted); }
+    .arrow {
+      font-family: system-ui, sans-serif;
+      font-size: 14px;
+      color: var(--muted);
+      padding: 8px 0 8px 16px;
+    }
+    .arrow b { color: var(--ink); font-weight: 650; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-family: system-ui, sans-serif;
+      font-size: 14px;
+    }
+    th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+    th { color: var(--muted); font-weight: 600; }
+    .now .box { border-color: #bfdbfe; background: var(--now-bg); }
+    .next .box { border-color: #a7f3d0; background: var(--next-bg); }
+    .tag {
+      display: inline-block;
+      font-family: system-ui, sans-serif;
+      font-size: 12px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .now .tag { color: var(--now); }
+    .next .tag { color: var(--next); }
+    footer { color: var(--muted); font-size: 15px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Обмен 1С и Kaspi</h1>
+    <p class="lead">1С отправляет долги жителей. Kaspi присылает оплаты. И туда, и обратно это письмо с файлом Excel.</p>
+
+    <section class="now">
+      <div class="tag">Сейчас</div>
+      <h2>Одна сумма на лицевой счёт</h2>
+      <p class="note">Так Kaspi принимает файл сегодня. Услуга в обмене не участвует.</p>
+      <div class="flow">
+        <div class="box">
+          <strong>1С</strong>
+          <span>Считает общий долг по лицевому счёту: вода, тепло и остальное сложены вместе.</span>
+        </div>
+        <div class="arrow">↓ файл на <b>ib.invoices@kaspi.kz</b><br>лицевой счёт, ФИО, адрес, сумма</div>
+        <div class="box">
+          <strong>Kaspi</strong>
+          <span>В приложении одна сумма. Человек платит её целиком.</span>
+        </div>
+        <div class="arrow">↓ файл от <b>imex@kaspi.kz</b><br>дата, номер платежа, лицевой счёт, сумма</div>
+        <div class="box">
+          <strong>1С</strong>
+          <span>Создаёт «Абонентскую плату». Вся сумма садится одной строкой, вид услуги пустой.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="next">
+      <div class="tag">Как нужно</div>
+      <h2>Отдельная сумма на каждую услугу</h2>
+      <p class="note">Тот же канал, почта и Excel. Меняется только состав строк. В 1С Кушмурун такой файл уже собирается и так же читается обратно. Kaspi переводит на него своё приложение.</p>
+      <div class="flow">
+        <div class="box">
+          <strong>1С</strong>
+          <span>Считает долг отдельно по каждой услуге. Нулевая сумма тоже уходит, чтобы услуга была видна.</span>
+        </div>
+        <div class="arrow">↓ файл на Kaspi<br>лицевой счёт, ФИО, услуга, адрес, код услуги, сумма</div>
+        <div class="box">
+          <strong>Kaspi</strong>
+          <span>В приложении отдельные строки: горячая вода, холодная вода. Человек платит за конкретную услугу.</span>
+        </div>
+        <div class="arrow">↓ отчёт по платежам<br>лицевой счёт, услуга, код услуги, сумма, дата</div>
+        <div class="box">
+          <strong>1С</strong>
+          <span>Оплата садится на эту услугу. Повтор того же платежа второй раз не проводится.</span>
+        </div>
+      </div>
+      <table>
+        <tr><th></th><th>Счёт 9797</th><th>Сумма</th></tr>
+        <tr><td>Горячая вода, код 1</td><td>Курманов С</td><td>0</td></tr>
+        <tr><td>Холодная вода, код 2</td><td>Курманов С</td><td>2 000</td></tr>
+      </table>
+    </section>
+
+    <footer>Код услуги — это договорённый номер. По нему 1С понимает, горячая это вода или холодная. Halyk потом работает по той же схеме, своим письмом и своими кодами.</footer>
+  </main>
+</body>
+</html>
